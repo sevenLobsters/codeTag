@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bookMark>
+    <h1>
+        <name>页面</name>
+        <des></des>
+        <h2>
+            <name>启动页</name>
+            <h3>
+                <name>接口</name>
+                <des>描述</des>
+                <h4>
+                    <line>94</line>
+                    <inProject>true</inProject>
+                    <url>
+                        file://D:/ANewSpace/2022/gspace/HHDDZ/proj.android/main_jar/src/main/java/com/excelliance/kxqp/gs/launch/function/CheckAPkCpu.java
+                    </url>
+                    <name>检查辅包逻辑</name>
+                    <relativePath>main_jar/src/main/java/com/excelliance/kxqp/gs/launch/function/CheckAPkCpu.java
+                    </relativePath>
+                </h4>
+            </h3>
+        </h2>
+    </h1>
+
+    <h1>
+    </h1>
+    <h1>
+    </h1>
+</bookMark>
+

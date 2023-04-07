@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CodeTag">
+    <h1>
+      <name>111</name>
+      <des />
+      <h2>
+        <name>1221</name>
+        <des />
+        <h3>
+          <name>添加tag</name>
+          <des />
+          <lineNumber>337</lineNumber>
+          <fileUrl>file://$PROJECT_DIR$/src/main/java/com/my/code/codetag/ui/BookMarkPanel.java</fileUrl>
+          <relativePath>src/main/java/com/my/code/codetag/ui/BookMarkPanel.java</relativePath>
+          <inProject>false</inProject>
+        </h3>
+      </h2>
+    </h1>
+    <h1>
+      <name>222</name>
+      <des />
+      <h2>
+        <name>111</name>
+        <des />
+      </h2>
+    </h1>
+    <h1>
+      <name>11</name>
+      <des />
+    </h1>
+  </component>
+</project>

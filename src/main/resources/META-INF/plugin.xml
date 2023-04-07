@@ -1,0 +1,42 @@
+<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+<idea-plugin>
+    <!-- Unique identifier of the plugin. It should be FQN. It cannot be changed between the plugin versions. -->
+    <id>com.my.code.codeTag</id>
+
+    <!-- Public plugin name should be written in Title Case.
+         Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-name -->
+    <name>CodeTag</name>
+
+    <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
+    <vendor email="zhanghang_wyyx@163.com">zhanghang</vendor>
+
+    <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
+         Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
+         Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
+    <description></descript
+
+    <!-- Product and plugin compatibility requirements.
+         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
+    <depends>com.intellij.modules.platform</depends>
+
+    <!-- Extension points defined by the plugin.
+         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
+    <extensions defaultExtensionNs="com.intellij">
+
+        <projectService serviceImplementation="com.my.code.codetag.CodeTagService" />
+        <toolWindow icon="Icons.default_icon"
+                    id="codeTag"
+                    anchor="bottom"
+                    factoryClass="com.my.code.codetag.ui.BookMarkFactory" />
+    </extensions>
+    <actions>
+        <action
+                icon="Icons.default_icon"
+                id="com.my.code.codetag.action.MouseAction"
+                class="com.my.code.codetag.action.MouseAction"
+                text="Add Tag">
+            <add-to-group group-id="EditorPopupMenu"/>
+        </action>
+
+    </actions>
+</idea-plugin>
