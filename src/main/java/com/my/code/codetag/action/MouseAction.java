@@ -95,7 +95,7 @@ public class MouseAction extends AnAction {
         editorTextField.setEnabled(true);
         editorTextField.setLayout(new BorderLayout());
         JTextField  jTextField = new JTextField();
-        jTextField.setText("enter tag des");
+        jTextField.setText("enter source code description");
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
         panel.add(jTextField,BorderLayout.WEST);
@@ -110,13 +110,26 @@ public class MouseAction extends AnAction {
                 super.mousePressed(e);
                 //[root, child2, child1Leaf2]
 //                System.out.println("select  getSelectionCount "+tree.getSelectionCount()+"  path "+tree.getSelectionPath()+"  len   "+tree.getSelectionPath().toString().split(",").length);
-                if(tree == null || tree.getSelectionCount() == 0 || (tree.getSelectionPath().toString().split(",").length <=2) ){
-                    Messages.showErrorDialog("please select sub tag","error");
+                if(TextUtils.isEmpty(editorTextField.getText())){
+                    Messages.showErrorDialog(project,"please input target source code description","error");
                     return;
                 }
-                if(TextUtils.isEmpty(editorTextField.getText())){
-                    Messages.showErrorDialog(project,"请输入一个描述","error");
+                if(tree == null || tree.getSelectionCount() == 0 ){
+                    Messages.showErrorDialog("please select a sub tag","error");
                     return;
+                }
+                if((tree.getSelectionPath().toString().split(",").length ==1)){
+                    Messages.showErrorDialog("Please click on the plus icon at the bottom of the idea to create a label, and right-click the label to create a sub label.","error");
+
+                }
+                if((tree.getSelectionPath().toString().split(",").length ==2)){
+                    String path = tree.getSelectionPath().toString();
+                    path = path.replace("[","");
+                    path = path.replace("]","");
+                    String[] arrPath = path.split(",");
+                    String p1 = arrPath[1];
+                    Messages.showErrorDialog(" Please select a sub label of "+p1+" to record the source code. (If there are no sub tags, please right-click on this tag in the tag list at the bottom of the idea and select the \"add sub tag\" option to create a sub tag)","error");
+
                 }
                 String path = tree.getSelectionPath().toString();
                 path = path.replace("[","");

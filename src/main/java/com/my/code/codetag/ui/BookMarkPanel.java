@@ -440,6 +440,7 @@ public class BookMarkPanel extends JPanel {
                                         service.getStore().removeTagH2(selectTag, selectTagChild);
                                         if (selectedNode != null && selectedNode.getParent() != null) treeModel.removeNodeFromParent(selectedNode);
                                     }
+                                    clearData();
                                 }
                             });
                             JBPopupFactory.getInstance().createActionGroupPopup(
@@ -461,7 +462,7 @@ public class BookMarkPanel extends JPanel {
 
     private void handleSelectPath(){
         String path = tree.getSelectionPath().toString();
-        System.out.println("handleSelectPath  ");
+//        System.out.println("handleSelectPath  path "+path);
         if(!TextUtils.isEmpty(path)){
             selectTag = "";
             selectTagChild = "";
@@ -475,11 +476,18 @@ public class BookMarkPanel extends JPanel {
             if (arr.length == 3) {
                 selectTagChild = arr[2];
             }
+            if(!TextUtils.isEmpty(selectTag)){
+                selectTag = selectTag.trim();
+            }
+            if(!TextUtils.isEmpty(selectTagChild)){
+                selectTagChild = selectTagChild.trim();
+            }
+//            System.out.println("handleSelectPath  selectTag"+selectTag+"  selectTagChild "+selectTagChild);
             if (h3Model != null) {
                 h3Model.clear();
                 if (!TextUtils.isEmpty(selectTagChild)) {
                     List<TagH3> l3 = service.getStore().getTagH3(selectTag, selectTagChild);
-//                                System.out.println("current list size " + l3.size());
+//                    System.out.println("current list size " + l3.size());
                     Iterator<TagH3> it3 = l3.iterator();
                     while (it3.hasNext()){
                         TagH3 tagH3 = it3.next();

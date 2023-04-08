@@ -6,6 +6,7 @@
     <!-- Public plugin name should be written in Title Case.
          Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-name -->
     <name>CodeTag</name>
+    <version>2022.1.1</version>
 
     <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
     <vendor email="zhanghang_wyyx@163.com">zhanghang</vendor>
@@ -13,8 +14,28 @@
     <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
          Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
          Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
-    <description></descript
-
+    <description>
+        <![CDATA[
+        The function of codeTag is similar to that of bookmarks in idea, but it can support navigation and jumping, as well as supporting secondary tags, import and export configurations.
+        A sub tag can contain multiple file editing locations.
+        <br>
+        <p>how to use</p>
+        <ul>
+          <li>Click on the codeTag tool at the bottom of the idea</li>
+          <li>Click on the plus icon to add a label</li>
+          <li>Right-click on the selected label to create a new sub label</li>
+          <li>Right click on the pop-up window in the file and select the add tag option. Enter the tag info and select subTag. Click OK to complete the tag addition</li>
+        </ul>
+        <br>
+      ]]>
+    </description>
+    <change-notes><![CDATA[
+      <p>1.0:</p>
+      <ul>
+        <li>Initial version</li>
+      </ul>
+    ]]>
+    </change-notes>
     <!-- Product and plugin compatibility requirements.
          Read more: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
     <depends>com.intellij.modules.platform</depends>

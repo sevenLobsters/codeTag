@@ -89,7 +89,7 @@ public class TagStore {
         if(CollectionUtils.isEmpty(rootTag)||TextUtils.isEmpty(tag1) || TextUtils.isEmpty(subTag)){
             return list;
         }
-//        System.out.println("TagStore   tag1="+tag1+"  subTag="+subTag);
+        System.out.println("TagStore   tag1="+tag1+"  subTag="+subTag+" root size "+rootTag.size());
         Iterator<TagH1> it1 = rootTag.iterator();
         while (it1.hasNext()){
             TagH1 h1 = it1.next();
@@ -267,8 +267,8 @@ public class TagStore {
 //            System.out.println("rootTag  size "+rootTag.size());
             while (it.hasNext()){
                 TagH1 t = it.next();
-//                System.out.println("TagH1 root name "+t.name+" h1 "+h1);
-                if(h1.equals(t.name)){
+                System.out.println("TagH1 root name "+t.name+" h1 "+h1+" h1.equals(t.name)   "+h1.equals(t.name));
+                if(h1.trim().equals(t.name.trim())){
 //                    System.out.println("h1 find "+t.name);
                     findTag = t;
                     break;
@@ -279,8 +279,8 @@ public class TagStore {
                 Iterator<TagH2> it2 = findTag.list.iterator();
                 while (it2.hasNext()){
                     TagH2 th2 = it2.next();
-//                    System.out.println("TagH2 th2 root name "+th2.name+" h1 "+h2);
-                    if(th2.name.equals(h2)){
+                    System.out.println("TagH2 list th2 name "+th2.name+" h2 "+h2+" th2.name.equals(h2) "+th2.name.equals(h2));
+                    if(th2.name.trim().equals(h2.trim())){
 //                        System.out.println("h2 find "+th2.name);
                         findH2 = th2;
                         break;
@@ -293,7 +293,7 @@ public class TagStore {
                 while (it3.hasNext()){
                     TagH3 th3 = it3.next();
 //                    System.out.println("TagH3 th3 root name "+th3.name+" h1 "+h3);
-                    if(th3.name.equals(h3)){
+                    if(th3.name.trim().equals(h3.trim())){
 //                        System.out.println("h3 find "+th3.name);
                         it3.remove();
                         break;
