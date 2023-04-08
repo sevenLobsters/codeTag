@@ -3,6 +3,7 @@ package com.my.code.codetag.action;
 import com.intellij.openapi.actionSystem.*;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.ui.DialogWrapper;
 import com.intellij.openapi.ui.Messages;
 import com.intellij.openapi.ui.popup.ComponentPopupBuilder;
 import com.intellij.openapi.ui.popup.JBPopup;
@@ -16,6 +17,8 @@ import com.intellij.ui.treeStructure.Tree;
 import com.intellij.util.ui.UIUtil;
 import com.my.code.codetag.CodeTagService;
 import com.my.code.codetag.bean.*;
+import com.my.code.codetag.ui.SampleDialogWrapper;
+import com.my.code.codetag.util.PopUtil;
 import org.apache.http.util.TextUtils;
 import org.jetbrains.annotations.NotNull;
 
@@ -101,26 +104,31 @@ public class MouseAction extends AnAction {
         panel.add(jTextField,BorderLayout.WEST);
         panel.add(editorTextField,BorderLayout.CENTER);
 
-
+        JPanel container = new JPanel();
         JBPopupFactory instance = JBPopupFactory.getInstance();
         JButton tConfirm = new JButton("confirm");
         tConfirm.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
                 super.mousePressed(e);
+                Point p = pop.getLocationOnScreen();
+                int x = p.x;
+                int y = p.y/2;
                 //[root, child2, child1Leaf2]
 //                System.out.println("select  getSelectionCount "+tree.getSelectionCount()+"  path "+tree.getSelectionPath()+"  len   "+tree.getSelectionPath().toString().split(",").length);
                 if(TextUtils.isEmpty(editorTextField.getText())){
-                    Messages.showErrorDialog(project,"please input target source code description","error");
+                    PopUtil.showTagItem("please input target source code description");
+                   return;
+                }
+                if(tree == null || tree.getSelectionCount() == 0 || ((list != null && list.size() != 0) && (tree.getSelectionPath().toString().split(",").length ==1))){
+                    PopUtil.showTagItem("please select a sub tag");
                     return;
                 }
-                if(tree == null || tree.getSelectionCount() == 0 ){
-                    Messages.showErrorDialog("please select a sub tag","error");
+                if((list != null && list.size() == 0) && (tree.getSelectionPath().toString().split(",").length ==1)){
+                    PopUtil.showTagItem("<html>Please click on the plus icon at the bottom of" +
+                                                    "<br>the idea to create a label, and right-click" +
+                                                    "<br>he label to create a sub label. </html>");
                     return;
-                }
-                if((tree.getSelectionPath().toString().split(",").length ==1)){
-                    Messages.showErrorDialog("Please click on the plus icon at the bottom of the idea to create a label, and right-click the label to create a sub label.","error");
-
                 }
                 if((tree.getSelectionPath().toString().split(",").length ==2)){
                     String path = tree.getSelectionPath().toString();
@@ -128,8 +136,14 @@ public class MouseAction extends AnAction {
                     path = path.replace("]","");
                     String[] arrPath = path.split(",");
                     String p1 = arrPath[1];
-                    Messages.showErrorDialog(" Please select a sub label of "+p1+" to record the source code. (If there are no sub tags, please right-click on this tag in the tag list at the bottom of the idea and select the \"add sub tag\" option to create a sub tag)","error");
-
+                    String s = "<html>    Please select a sub label of "+p1+
+                               "<br>   to record the source code. (If there " +
+                                "<br>   are no sub tags, please right-click" +
+                                "<br>   on this tag in the tag list at list at" +
+                                "<br>   the bottom of the idea and select the" +
+                                "<br>   \"add sub tag\" option to create a sub tag)</html>";
+                    PopUtil.showTagItem(s);
+                    return;
                 }
                 String path = tree.getSelectionPath().toString();
                 path = path.replace("[","");
@@ -153,7 +167,7 @@ public class MouseAction extends AnAction {
             }
         });
 
-        JPanel container = new JPanel();
+
         container.setLayout(new BorderLayout());
         container.add(panel,BorderLayout.NORTH);
         container.add(tree,BorderLayout.CENTER);
@@ -162,6 +176,7 @@ public class MouseAction extends AnAction {
         builder.setTitle("add a tag");
         builder.setMinSize(new Dimension(450,400));
         builder.setRequestFocus(true);
+        builder.setNormalWindowLevel(true);
         builder.setMovable(true);
         pop = builder.createPopup();
         pop.showInFocusCenter();

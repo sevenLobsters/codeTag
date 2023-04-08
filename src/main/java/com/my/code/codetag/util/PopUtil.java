@@ -3,6 +3,9 @@ package com.my.code.codetag.util;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.InputValidator;
 import com.intellij.openapi.ui.Messages;
+import com.intellij.openapi.ui.popup.ComponentPopupBuilder;
+import com.intellij.openapi.ui.popup.JBPopup;
+import com.intellij.openapi.ui.popup.JBPopupFactory;
 import com.intellij.ui.SimpleColoredComponent;
 import com.intellij.ui.SimpleTextAttributes;
 import com.intellij.ui.components.JBList;
@@ -11,7 +14,9 @@ import com.my.code.codetag.CodeTagService;
 import com.my.code.codetag.bean.TagH1;
 
 import javax.swing.*;
+import javax.swing.event.MouseInputAdapter;
 import java.awt.*;
+import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -35,32 +40,33 @@ public class PopUtil {
         return inputText;
     }
 
-    public static int showTagItem(Project project){
-//        List<TagH1> list = CodeTagService.getInstance(project).getStore().getTagH1();
-////        int line = editor.getCaretModel().getLogicalPosition().line;
-//        Iterator<TagH1> iterator = list.iterator();
-//        ArrayList<TagH1> tagList = new ArrayList<>();
-//        while (iterator.hasNext()) {
-//            TagH1 next = iterator.next();
-//            tagList.add(next);
-//        }
-        List<TagH1> list = CodeTagService.getInstance(project).getStore().getTagH1();
-        DefaultListModel<TagH1> h1Model = new DefaultListModel<>();
-        h1Model.addAll(list);
-
-        JBList<TagH1> h1List = new JBList<>(h1Model);
-        h1List.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        h1List.setCellRenderer(new StringRender<TagH1>());
-        h1List.setSelectedIndex(0);
-
-//        Messages.showOkCancelDialog(h1List,"select a choice","this is title","ok","cancel",Icons.default_icon);
-        return 0;
-//        JPanel panel = new JPanel();
-//        JTextField jf = new JTextField("hahhahh");
-//        panel.add(jf);
-//        String[] arr = {"no","yes"};
-//        return Messages.showDialog(panel,"please select item","info",arr,1, Icons.default_icon);
-
+    public static void showTagItem(String text){
+        JPanel container = new JPanel();
+        JBPopupFactory instance = JBPopupFactory.getInstance();
+        JButton tConfirm = new JButton("confirm");
+        tConfirm.setMaximumSize(new Dimension(150,50));
+        JLabel label = new JLabel(text);
+        label.setHorizontalAlignment(SwingConstants.CENTER);
+        container.setLayout(new BorderLayout());
+        container.add(label,BorderLayout.CENTER);
+        container.add(tConfirm,BorderLayout.SOUTH);
+        ComponentPopupBuilder builder = instance.createComponentPopupBuilder(container, tConfirm);
+        builder.setTitle("help");
+        builder.setMinSize(new Dimension(250,200));
+        builder.setRequestFocus(true);
+        builder.setNormalWindowLevel(true);
+        builder.setMovable(true);
+        JBPopup pop = builder.createPopup();
+        pop.showInFocusCenter();
+        tConfirm.addMouseListener(new MouseInputAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                super.mousePressed(e);
+                if(pop != null && pop.isVisible()){
+                    pop.cancel();
+                }
+            }
+        });
     }
 
 
